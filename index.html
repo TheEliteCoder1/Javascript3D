@@ -25,13 +25,13 @@
         this.width = width
         this.height = height
         this.depth = depth
-        var cube = new THREE.Mesh(new THREE.BoxGeometry(this.width, this.height, this.depth), new Three.MeshDepthMaterial({color: THREE.color("rgb(255,0,0)")}))
-        this.position = cube.position
+        this.cube = new THREE.Mesh( new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshDepthMaterial({}));
+
       }
       
     }
     
-    var playerCube = Cube(1, 1, 1);
+    var playerCube = new Cube(1, 1, 1);
     scene.add( playerCube.cube );
     console.log(playerCube.position);
       
