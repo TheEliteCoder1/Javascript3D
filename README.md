@@ -1,2 +1,2 @@
 # Javascript3D
-3D Games with Javascript
+Learning about ThreeJS to make 3D Games
