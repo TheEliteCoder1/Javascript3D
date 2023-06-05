@@ -34,9 +34,9 @@
         this.width = width
         this.height = height
         this.depth = depth
-        this.color = color 
+        this.color = color
         // Cannot see standard material without color
-        this.cube = new THREE.Mesh( new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshStandardMaterial({"color": this.color.color}));
+        this.cube = new THREE.Mesh( new THREE.BoxGeometry( this.width, this.height, this.depth ), new THREE.MeshStandardMaterial({"color": this.color.color}));
         this.position = this.cube.position
 
       }
@@ -50,19 +50,21 @@
       
     }
     
-    var playerCube = new Cube(1, 1, 1, new Color(255,0,0));
-    scene.add( playerCube.cube );
-    var playerCubeLight = new THREE.DirectionalLight( new Color(255,255,255).color, 0.5 );
-		playerCubeLight.position.set(playerCube.position.x,playerCube.position.y,5)
-    scene.add( playerCubeLight );
+    var ground = new Cube(15, 1, 6, new Color(255,0,0));
+  
+    scene.add( ground.cube );
+    var groundLight = new THREE.DirectionalLight( new Color(255,255,255).color, 0.5 );
+		groundLight.position.set(ground.position.x,ground.position.y,5)
+    scene.add( groundLight );
     
-    camera.position.z = 2;
+    camera.position.z = 5;
+
     
     function animate() {
         requestAnimationFrame( animate );
     
         // apply physics to cube
-        playerCube.rotate(0.01, 0.01, 0);
+        ground.rotate(0.01, 0, 0)
     
     	renderer.render( scene, camera );
     }
