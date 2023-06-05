@@ -19,28 +19,50 @@
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
+
+    class Color{
+        constructor(red, green, blue) {
+            this.red = red
+            this.green = green
+            this.blue = blue
+            this.color = new THREE.Color(`rgb(${this.red}, ${this.green}, ${this.blue})`);
+        }
+    }
     
     class Cube {
-      constructor(width, height, depth) {
+      constructor(width, height, depth, color) {
         this.width = width
         this.height = height
         this.depth = depth
-        this.cube = new THREE.Mesh( new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshStandardMaterial({"color": new THREE.Color("rgb(255,0,0)")}));
+        this.color = color 
+        // Cannot see standard material without color
+        this.cube = new THREE.Mesh( new THREE.BoxGeometry( 1, 1, 1 ), new THREE.MeshStandardMaterial({"color": this.color.color}));
+        this.position = this.cube.position
 
+      }
+
+      rotate(x_deg, y_deg, z_deg) {
+        // Rotates cube in all 3 dimensions
+        this.cube.rotation.x += x_deg;
+        this.cube.rotation.y += y_deg;
+        this.cube.rotation.z += z_deg;
       }
       
     }
     
-    var playerCube = new Cube(1, 1, 1);
+    var playerCube = new Cube(1, 1, 1, new Color(0,0,0));
     scene.add( playerCube.cube );
-    console.log(playerCube.position);
-      
-    camera.position.z = 5;
+    var playerCubeLight = new THREE.DirectionalLight( new Color(255,255,255).color, 0.5 );
+		playerCubeLight.position.set(playerCube.position.x,playerCube.position.y,5)
+    scene.add( playerCubeLight );
+    
+    camera.position.z = 2;
     
     function animate() {
-    	requestAnimationFrame( animate );
+        requestAnimationFrame( animate );
     
-      // apply physics to cube
+        // apply physics to cube
+        playerCube.rotate(0.01, 0.01, 0);
     
     	renderer.render( scene, camera );
     }
