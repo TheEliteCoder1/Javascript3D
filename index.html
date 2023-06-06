@@ -50,21 +50,23 @@
       
     }
     
-    var ground = new Cube(15, 1, 6, new Color(255,0,0));
+    var ground = new Cube(8, 0.3, 5, new Color(255,0,0));
   
     scene.add( ground.cube );
     var groundLight = new THREE.DirectionalLight( new Color(255,255,255).color, 0.5 );
 		groundLight.position.set(ground.position.x,ground.position.y,5)
     scene.add( groundLight );
     
-    camera.position.z = 5;
+    camera.position.z = 4;
+
+    // var playerBall 
+    // SphereGeometry(radius : Float, widthSegments : Integer, heightSegments : Integer, phiStart : Float, phiLength : Float, thetaStart : Float, thetaLength : Float)
 
     
     function animate() {
         requestAnimationFrame( animate );
     
         // apply physics to cube
-        ground.rotate(0.01, 0, 0)
     
     	renderer.render( scene, camera );
     }
